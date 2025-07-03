@@ -1,22 +1,25 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { IBook } from './book.types';
-
 
 export const bookApi = createApi({
   reducerPath: 'bookApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api/book' }),
-  tagTypes: ['Books'],
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api/' }), // তোমার backend base URL
+  tagTypes: ['Books'], // cache invalidation-এর জন্য
   endpoints: (builder) => ({
-    getBooks: builder.query<IBook[], void>({
+    
+    // 📚 1. Get All Books
+    getBooks: builder.query({
       query: () => 'books',
       providesTags: ['Books'],
     }),
 
-    getBookById: builder.query<IBook, string>({
-      query: (id) => `books/${id}`,
+    // 🔍 2. Get Single Book
+    getBookById: builder.query({
+      query: (id: string) => `books/${id}`,
+      providesTags: (result, error, id) => [{ type: 'Books', id }],
     }),
 
-    addBook: builder.mutation<IBook, Partial<IBook>>({
+    // ➕ 3. Add New Book
+    addBook: builder.mutation({
       query: (newBook) => ({
         url: 'books',
         method: 'POST',
@@ -25,17 +28,21 @@ export const bookApi = createApi({
       invalidatesTags: ['Books'],
     }),
 
-    updateBook: builder.mutation<IBook, { id: string; updatedData: Partial<IBook> }>({
+    // ✏️ 4. Update Book
+    updateBook: builder.mutation({
       query: ({ id, updatedData }) => ({
-        url: `books/${id}`,
+        url: `books/${id}`,       // PUT /api/books/:id
         method: 'PUT',
         body: updatedData,
       }),
       invalidatesTags: ['Books'],
     }),
+  
 
-    deleteBook: builder.mutation<{ success: boolean; id: string }, string>({
-      query: (id) => ({
+
+    // 🗑️ 5. Delete Book
+    deleteBook: builder.mutation({
+      query: (id: string) => ({
         url: `books/${id}`,
         method: 'DELETE',
       }),
@@ -44,6 +51,7 @@ export const bookApi = createApi({
   }),
 });
 
+// 🔁 Export auto-generated hooks
 export const {
   useGetBooksQuery,
   useGetBookByIdQuery,

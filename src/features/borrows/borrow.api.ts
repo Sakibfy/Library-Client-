@@ -7,25 +7,20 @@ export const borrowApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api/' }),
   tagTypes: ['Borrow'],
   endpoints: (builder) => ({
-    // ১. একটি বই borrow করা
     borrowBook: builder.mutation<IBorrow, { bookId: string; data: { quantity: number; dueDate: string } }>({
       query: ({ bookId, data }) => ({
-        url: `borrows/${bookId}`,
+        url: `borrow/${bookId}`, // ✅ Correct route
         method: 'POST',
         body: data,
       }),
       invalidatesTags: ['Borrow'],
     }),
 
-    // ২. borrow summary পাওয়া
     getBorrowSummary: builder.query<IBorrowSummary[], void>({
-      query: () => 'borrows/summary',
+      query: () => 'borrow/summary/all',
       providesTags: ['Borrow'],
     }),
   }),
 });
 
-export const {
-  useBorrowBookMutation,
-  useGetBorrowSummaryQuery,
-} = borrowApi;
+export const { useBorrowBookMutation, useGetBorrowSummaryQuery } = borrowApi;

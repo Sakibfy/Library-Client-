@@ -4,7 +4,7 @@ import { borrowApi } from '../features/borrows/borrow.api';
 import { bookApi } from '../features/books/book.api';
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:5000/api/', // বা .env থেকে নিতে পারো
+  baseUrl: 'http://localhost:5000/api/books',
 });
 
 export const apiReducers = {
