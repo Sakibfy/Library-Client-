@@ -1,11 +1,11 @@
 import App from "@/App";
 import BookForm from "@/components/BookForm";
 import BorrowForm from "@/components/BorrowForm";
-import BookDetailsPage from "@/pages/BookDetailsPage";
 import BooksPage from "@/pages/BooksPage";
 import BorrowSummaryPage from "@/pages/BorrowSummaryPage";
 import EditBookForm from "@/pages/EditBookPage";
 import { createBrowserRouter } from "react-router";
+import BannerBookPage from "@/pages/BannerBookPage";
 
 
 const router = createBrowserRouter([
@@ -17,11 +17,11 @@ const router = createBrowserRouter([
         path: 'books',
         element: <BooksPage />
       },
-
       {
-        path: 'books/:bookId',
-        element: <BookDetailsPage />
+        path: '/',
+        element: <BannerBookPage />
       },
+
       {
         path: 'create-book',
         element: <BookForm />

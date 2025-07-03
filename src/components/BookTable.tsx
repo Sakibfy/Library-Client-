@@ -1,23 +1,43 @@
-import { useNavigate } from 'react-router';
-import { useGetBooksQuery, useDeleteBookMutation } from '../features/books/book.api';
-
-import toast from 'react-hot-toast';
+import { useNavigate } from "react-router";
+import { useGetBooksQuery, useDeleteBookMutation } from "../features/books/book.api";
+import Swal from "sweetalert2";
 
 const BookTable = () => {
-  const { data, isLoading, isError } = useGetBooksQuery(undefined);
-  console.log(data);
+  const { data, isLoading, isError, refetch } = useGetBooksQuery(undefined);
   const [deleteBook] = useDeleteBookMutation();
   const navigate = useNavigate();
 
-  const handleDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this book?')) {
-      try {
-        await deleteBook(id).unwrap();
-        toast.success('Book deleted!');
-      } catch (err) {
-        toast.error('Failed to delete book');
+  const handleDelete = (id: string) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await deleteBook(id).unwrap();
+          if (res?.deletedCount > 0 || res?.success || res?.status === "success") {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your book has been deleted.",
+              icon: "success",
+            });
+            refetch(); // refetch book list
+          }
+        } catch (error) {
+          Swal.fire({
+            title: "Error!",
+            text: "Failed to delete the book.",
+            icon: "error",
+          });
+          console.error("Delete error:", error);
+        }
       }
-    }
+    });
   };
 
   if (isLoading) return <p className="text-center">Loading books...</p>;
