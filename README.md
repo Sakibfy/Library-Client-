@@ -1,69 +1,139 @@
-# React + TypeScript + Vite
+# 📚 Minimal Library Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A minimal full-stack Library Management System built with **React**, **Redux Toolkit Query (RTK Query)**, **TypeScript**, **Tailwind CSS**, **Express.js**, and **MongoDB**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔥 Live Links
 
-## Expanding the ESLint configuration
+- 🔗 Frontend: [https://library-client-peach.vercel.app]
+- 🔗 Backend: [https://l-2-a-4-library-sever.vercel.app]
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### ✅ Book Management
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- List all books in table view.
+- Add new book.
+- Edit book details.
+- Delete book.
+- Borrow a book.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### ✅ Borrow Management
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Borrow book with quantity and due date.
+- Borrow summary (aggregate data):
+  - Book title
+  - ISBN
+  - Total quantity borrowed
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### ✅ Pages
+
+| Route | Description |
+|-------|-------------|
+| `/books` | All books list |
+| `/create-book` | Create new book |
+| `/edit-book/:id` | Edit existing book |
+| `/borrow/:id` | Borrow form for a book |
+| `/borrow-summary` | Summary of all borrowed books |
+
+---
+
+## ⚙️ Technologies Used
+
+### Frontend
+- React
+- TypeScript
+- Redux Toolkit & RTK Query
+- Tailwind CSS
+- React Router DOM
+- React Hot Toast
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- MVC Pattern
+
+---
+
+## 📁 Folder Structure
+
+### Frontend
+
+\`\`\`
+src/
+├── components/
+├── pages/
+├── features/
+├── redux/
+└── routes/
+\`\`\`
+
+### Backend
+
+\`\`\`
+server/
+├── modules/
+├── utils/
+├── config/
+├── app.ts
+└── server.ts
+\`\`\`
+
+---
+
+## 🔐 .env Setup
+
+### Frontend
+
+\`\`\`env
+VITE_API_BASE_URL=https://l-2-a-4-library-sever.vercel.app/api
+\`\`\`
+
+### Backend
+
+
+
+### 2️⃣ Setup Backend
+
+\`\`\`bash
+cd server
+npm install
+npm run dev
+\`\`\`
+
+### 3️⃣ Setup Frontend
+
+\`\`\`bash
+cd frontend
+npm install
+npm run dev
+\`\`\`
+
+---
+
+## 📦 Build for Production
+
+### Frontend
+
+\`\`\`bash
+npm run build
+\`\`\`
+
+### Backend
+
+Deploy using services like **Render**, **Railway**, **Vercel (serverless)**, or **Heroku**.
+
+---
+
+## 🙌 Author
+
+- **Md Sakib** — [GitHub](https://github.com/mdsakibfy)
+## 🔥 Github Server Links
+
+- 🔗 Backend Repo: [https://github.com/Sakibfy/Library-Server]
+---
