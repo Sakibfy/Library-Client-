@@ -1,12 +1,14 @@
 export interface IBorrow {
   _id?: string;
-  book: string; // book ID
+  book: string; 
   quantity: number;
-  dueDate: string; // ISO string format (yyyy-mm-dd)
+  dueDate: string; 
 }
 
 export interface IBorrowSummary {
-  title: string;
-  isbn: string;
+  book: {
+    title: string;
+    isbn: string;
+  };
   totalQuantity: number;
 }

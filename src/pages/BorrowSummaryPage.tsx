@@ -1,4 +1,5 @@
 import { useGetBorrowSummaryQuery } from "@/features/borrows/borrow.api";
+import type { IBorrowSummary } from "@/features/borrows/borrow.tyoes";
 
 
 const BorrowSummaryPage = () => {
@@ -20,14 +21,15 @@ const BorrowSummaryPage = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.data?.map((summaryItem: any) => (
-            <tr key={summaryItem._id} className="border-b hover:bg-gray-50">
-              <td className="px-4 py-2">{summaryItem.book.title}</td>
-              <td className="px-4 py-2">{summaryItem.book.isbn}</td>
-              <td className="px-4 py-2 font-semibold">{summaryItem.totalQuantity}</td>
-            </tr>
-          ))}
-        </tbody>
+  {data?.data?.map((summaryItem: IBorrowSummary) => (
+    <tr key={summaryItem.book.isbn} className="border-b hover:bg-gray-50">
+      <td className="px-4 py-2">{summaryItem.book.title}</td>
+      <td className="px-4 py-2">{summaryItem.book.isbn}</td>
+      <td className="px-4 py-2 font-semibold">{summaryItem.totalQuantity}</td>
+    </tr>
+  ))}
+</tbody>
+
       </table>
     </div>
   );

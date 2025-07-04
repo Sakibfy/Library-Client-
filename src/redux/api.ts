@@ -1,10 +1,12 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
 import { borrowApi } from '../features/borrows/borrow.api';
 import { bookApi } from '../features/books/book.api';
 
+
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 export const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:5000/api/books',
+  baseUrl: baseUrl, 
 });
 
 export const apiReducers = {

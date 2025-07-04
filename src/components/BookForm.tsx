@@ -28,7 +28,7 @@ export default function BookForm() {
     copies: 1,
     available: true,
   });
-// console.log(formData);
+console.log(formData);
   useEffect(() => {
     if (existingBook) {
       setFormData({
@@ -43,14 +43,18 @@ export default function BookForm() {
     }
   }, [existingBook]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+  
+    const isCheckbox = type === "checkbox";
+    const checked = isCheckbox ? (e.target as HTMLInputElement).checked : undefined;
+  
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: isCheckbox ? checked : value,
     }));
   };
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {

@@ -1,24 +1,23 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+// ✅ Import .env variable
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 export const bookApi = createApi({
   reducerPath: 'bookApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api/' }), // তোমার backend base URL
-  tagTypes: ['Books'], // cache invalidation-এর জন্য
+  baseQuery: fetchBaseQuery({ baseUrl }), 
+  tagTypes: ['Books'],
   endpoints: (builder) => ({
-    
-    // 📚 1. Get All Books
     getBooks: builder.query({
       query: () => 'books',
       providesTags: ['Books'],
     }),
 
-    // 🔍 2. Get Single Book
     getBookById: builder.query({
       query: (id: string) => `books/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Books', id }],
+      providesTags: (id) => [{ type: 'Books', id }],
     }),
 
-    // ➕ 3. Add New Book
     addBook: builder.mutation({
       query: (newBook) => ({
         url: 'books',
@@ -28,19 +27,15 @@ export const bookApi = createApi({
       invalidatesTags: ['Books'],
     }),
 
-    // ✏️ 4. Update Book
     updateBook: builder.mutation({
       query: ({ id, updatedData }) => ({
-        url: `books/${id}`,       // PUT /api/books/:id
+        url: `books/${id}`,
         method: 'PUT',
         body: updatedData,
       }),
       invalidatesTags: ['Books'],
     }),
-  
 
-
-    // 🗑️ 5. Delete Book
     deleteBook: builder.mutation({
       query: (id: string) => ({
         url: `books/${id}`,
@@ -51,7 +46,6 @@ export const bookApi = createApi({
   }),
 });
 
-// 🔁 Export auto-generated hooks
 export const {
   useGetBooksQuery,
   useGetBookByIdQuery,
